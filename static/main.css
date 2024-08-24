@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Moderustic:wght@300&display=swap');
+*{
+    box-sizing:border-box;
+    border:0px;
+    margin:0px;
+}
+html{
+    font-family: "Moderustic", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+body{
+    padding:0px 10px 0px 10px;
+    background-color:white;
+    background-image: linear-gradient( to bottom right,magenta ,blue);
+    color:white;
+    font-size:20px;
+    min-height:100vh;
+}
+h1,h2,h3,h4,h5,h6{
+    font-size:30px;
+    color:white;
+}
+button{
+    color: white;
+    background: transparent;
+    font-size: 30px;
+}
+.nav{
+    position:fixed;
+    top:10px;
+    width:90vw;
+}
+nav{
+    border-radius: 10px;
+    width: 100%;
+}
+button:active{
+    box-shadow: none;
+    transform:scale(0.95);
+    
+}
+.block{
+    margin:2px 0px 2px 0px ;
+    box-shadow: 4px 4px 2px 3px rgba(255, 0, 255, 0.594);
+    border-radius: 10px;
+    border:3px solid white;
+}
+.flex_column{
+    display:flex;
+    flex-flow:column nowrap;
+    justify-content:center;
+    align-items:center;
+
+}
+.flex_row{
+    display:flex;
+    flex-flow:row nowrap;
+    justify-content:center;
+    align-items:center;
+    padding:3px;
+}
+.circular_icon{
+    margin:2px 5px 2px 5px;
+    display: grid;
+    place-items: center;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    font-size: 40px;
+    border:2px solid white;
+}
+footer{
+    width: 100%;
+    position:fixed;
+    bottom:0;
+    background-color:black;
+    color:white;
+    border:2px solid white;
+    padding: 5px 2px 5px 2px;
+}
+dialog{
+    padding: 0px;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:100px;
+    height: 10vh;
+
+}
+::backdrop{
+    background-color: rgba(0,0,0,0.8);
+}
+.loader{
+    margin:12px;
+    display:grid;
+    place-items: center;
+}
+@media screen and (max-width:320) {
+    
+}
