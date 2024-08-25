@@ -1,9 +1,15 @@
-import os
-
-from flask import Flask,render_template
-UPLOAD_FOLDER = '/files'
+import os,random
+from werkzeug.utils import secure_filename
+import datetime
+from flask import Flask,render_template,request,flash,redirect,url_for,g,send_from_directory
+UPLOAD_FOLDER = 'files/'
 ALLOWED_EXTENSIONS = {'*'}
-
+def random_str():
+    l='abcdefghijklmnopqrstuvwxyz'
+    s=''
+    for i in range(1,11):
+        s+=l[random.randint(1,25)]
+    return s
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -27,11 +33,37 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
     @app.route('/')
-    def hello():
-        return render_template('index.html')
-
+    def home():
+        flash('hello','success')
+        return render_template('index.html',name={'user':'shiv'} ,files=os.listdir('files/')) 
+    
+    @app.route('/upload',methods=['GET','POST'])
+    def upload():
+        print(request.method)
+        if request.method == 'POST':
+            print(request.args)
+            if 'file' not in request.files:
+                flash('No file part','error')
+                print(1)
+                return redirect('/')
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file','error')
+                print(2)
+                return render_template('failed.html')
+            if file:
+                print(3)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], random_str()+file.filename)
+                file.save(file_path)
+                flash('File successfully uploaded')
+                return redirect(url_for('home'))
+        return redirect(url_for('home'))
+    
+    @app.route('/myuploads/<filename>')
+    def myuploads(filename):
+        return send_from_directory(app.config['UPLOAD_FOLDER'],filename)
+    
     return app
 
 

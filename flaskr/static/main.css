@@ -26,6 +26,9 @@ button{
     background: transparent;
     font-size: 30px;
 }
+.cancel_button{
+    font-size: 20px;
+}
 .nav{
     position:fixed;
     top:10px;
@@ -41,10 +44,15 @@ button:active{
     
 }
 .block{
-    margin:2px 0px 2px 0px ;
+    font-size: 20px;
+    color:white;
+    margin:10px 0px 10px 0px;
     box-shadow: 4px 4px 2px 3px rgba(255, 0, 255, 0.594);
     border-radius: 10px;
     border:3px solid white;
+}
+.recent{
+    min-height: 10vh;
 }
 .flex_column{
     display:flex;
@@ -95,6 +103,17 @@ dialog{
 .loader{
     margin:12px;
     display:grid;
+    place-items: center;
+}
+.message{
+    padding:10px;
+    position:fixed;
+    top:20px;
+    left:50%;
+    transform:translateY(-50%);
+    background-color: yellow;
+    font-size: 20px;
+    display: grid;
     place-items: center;
 }
 @media screen and (max-width:320) {
