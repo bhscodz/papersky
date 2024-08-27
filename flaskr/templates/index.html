@@ -8,8 +8,10 @@
     <script src="https://kit.fontawesome.com/ac0514ba62.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>PaperSky</title>
 </head>
+
 <body class="flex_column">
     <div class="nav">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -49,7 +51,7 @@
             </div>
         </nav>
     </div>
-    <main style="width:80vw">
+    <main style="width:80vw; margin-top: 50px;">
         <div style="margin-bottom:10vh">
             <h1>Hello {{ name['user'] }} ,👋
                 <br> store all your things at one place<br>
@@ -58,33 +60,32 @@
             <button type="file" style="width:100%;" onclick="add()" class="block flex_row">
                 Add <i class="fa-solid fa-plus"></i>
             </button>
-            <div id='preview_holder'></div>
+            <div id='preview_holder' class="flex_column"></div>
             
-            <form action="/upload" method='POST' enctype="multipart/form-data">
-                <input id="file" type="file" name='file' style='display:none;'>
-                <button id="submit" type="submit" style="width:100%;"class="block flex_row">
-                    submit
-                </button>
+            <form id='file_form' action="/upload" method='POST' enctype="multipart/form-data">
+                <input 
+                id="file" 
+                accept='image/*,.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document' 
+                type="file" 
+                multiple
+                name='file' 
+                style='display:none;'>
             </form>
+            <button id="submit" style="width:100%;" class="block flex_row">
+                submit
+            </button>
         </div>
+
         <h1>Recents...</h1>
-        
-        <div class="message">
-            {% with messages=get_flashed_messages() %}
-            {% if messages %}
-            {% for message in messages %}
-            {{message}}
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-        </div>
+        <div class="flex_column">
         {% for file in files %}
-        <div class="block">{{file}}</div>
+        <div class="block" style="width:90vw;">{{file}}</div>
         {% endfor %}
-        <div class="block"></div>
-        <div class="block"></div>
+        </div>
        
         </main>
+    
+    <!--all dialog for waiting progress goes here-->
     <dialog id="wait">
         <div class="loader">
             <div class="spinner-border text-success" role="status">
@@ -92,10 +93,27 @@
             </div>
         </div>
     </dialog>
+
+    <!--all toasts containers goes here-->
+    <div id="toast_container" class="toast-container position-fixed top-0 end-0 p-3">
+    </div>
+
     <footer class="flex_column">
-        Made with ❤️ Bhaskar and Sourabh
+        Made with ❤️ by Bhaskar and Sourabh
     </footer>
-    
+
+    <!--all scripts goes here-->
+    <script>
+        onload = ()=>{
+            {% with messages=get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category,message in messages %}
+            gen_toast("{{message}}","{{category}}").firstChild.classList.add("show");
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        };
+    </script>  
 </body>
 
 </html>     
