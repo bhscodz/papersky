@@ -117,3 +117,6 @@ input.addEventListener('change',()=>{
         preview()
     };
 })
+function fetch_file(){
+    
+};
