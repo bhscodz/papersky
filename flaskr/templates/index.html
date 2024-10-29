@@ -53,10 +53,18 @@
     </div>
     <main style="width:80vw; margin-top: 50px;">
         <div style="margin-bottom:10vh">
-            <h1>Hello {{ current_user.name }} ,👋
+            <h1>{{message}} ,👋
                 <br> store all your things at one place<br>
                 introducing <strong>"PaperSky"</strong>
             </h1>
+            
+            <!--login with google here-->
+                {% if current_user.is_authenticated %}
+                <a style="font-size:30px; color:white;" href="{{ url_for('logout') }}">logout  <i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+                {% else %}
+                <a href="{{ url_for('authorize') }}"><img src="{{ url_for('static',filename='./images/signup_g.png') }}" alt="signup with google"></a>
+                {% endif %}
+            
             <button type="file" style="width:100%;" onclick="add()" class="block flex_row">
                 Add <i class="fa-solid fa-plus"></i>
             </button>
